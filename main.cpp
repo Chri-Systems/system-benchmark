@@ -21,6 +21,9 @@ int main() {
   cin >> selected;
   cin.clear();
 
+  long warm_up_duration = benchmark::warm_up();
+  cout << "warm-up duration: " << warm_up_duration << " ms" << endl;
+
   switch (selected) {
     case 1: {
       BenchmarkResult result = benchmark::integer_benchmark(iterations);
