@@ -1,25 +1,37 @@
 #include <chrono>
 #include <iostream>
-#include <thread>
-
 #include "benchmark.h"
 
 using std::cin;
 using std::cout;
 using std::endl;
 
+namespace color {
+  constexpr const char* reset = "\033[0m";
+  constexpr const char* red = "\033[31m";
+  constexpr const char* green = "\033[32m";
+  constexpr const char* yellow = "\033[33m";
+  constexpr const char* blue = "\033[34m";
+  constexpr const char* cyan = "\033[36m";
+}
+
 int main() {
   constexpr int iterations = 500000000;
 
-  cout << "select an option (1-3)" << endl;
+  cout << "\nSystem Benchmark v0.1.0-alpha";
+#ifdef DEVELOPMENT_BUILD
+  cout << color::yellow << " [Development Build]" << color::reset;
+#endif
+  cout << "\n\nselect an option (1-4)" << endl;
   cout << "1) Integer Benchmark" << endl;
   cout << "2) Floating Point Benchmark" << endl;
   cout << "3) Bitwise Benchmark" << endl;
   cout << "4) Basic Benchmark (Integer + Floating Point + Bitwise)" << endl;
 
-  int selected;
+  int selected = 0;
   cin >> selected;
-  cin.clear();
+
+  cout << "\nRunning benchmark, please wait...\n" << endl;
 
   benchmark::warm_up();
 
@@ -69,11 +81,11 @@ int main() {
       cout << "Total Score: " << (result_i.score + result_f.score + result_b.score) / 3 << endl;
       break;
     }
-    default: break;
+    default: {
+      cout << color::red << "Invalid input" << color::reset << endl;
+      return 1;
+    }
   }
-
 
   return 0;
 }
-
-
