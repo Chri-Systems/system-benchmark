@@ -27,7 +27,6 @@ namespace benchmark {
     return {static_cast<double>(result), iterations, duration_test.count(), score};
   }
 
-
   inline BenchmarkResult floating_point_benchmark(const int iterations) {
     double result = 7545.342;
     auto start = steady_clock::now().time_since_epoch();
@@ -41,7 +40,6 @@ namespace benchmark {
 
     return {result, iterations, duration_test.count(), score};
   }
-
 
   inline BenchmarkResult bitwise_benchmark(const int iterations) {
     uint32_t result = 0xA53F91C7;
@@ -81,5 +79,4 @@ namespace benchmark {
 
     return duration_cast<milliseconds>(end - start).count();
   }
-
 }
