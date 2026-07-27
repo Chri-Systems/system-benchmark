@@ -9,7 +9,7 @@ using std::cout;
 using std::endl;
 
 int main() {
-  int iterations = 500000000;
+  constexpr int iterations = 500000000;
 
   cout << "select an option (1-3)" << endl;
   cout << "1) Integer Benchmark" << endl;
@@ -51,18 +51,22 @@ int main() {
       cout << "Integer Checksum (debug): " << result_i.checksum << endl;
       cout << "Integer Duration: " << result_i.duration << " ms"  << endl;
       cout << "Integer Score: " << result_i.score << endl;
+      cout << endl;
 
       cout << "Floating Checksum (debug): " << result_f.checksum << endl;
       cout << "Floating Point Duration: " << result_f.duration << " ms"  << endl;
       cout << "Floating Point Score: " << result_f.score << endl;
+      cout << endl;
 
       cout << "Bitwise Checksum (debug): " << result_b.checksum << endl;
       cout << "Bitwise Duration: " << result_b.duration << " ms"  << endl;
       cout << "Bitwise Score: " << result_b.score << endl;
+      cout << endl;
 
       cout << "Total Duration: " << result_i.duration + result_f.duration + result_b.duration << " ms"  << endl;
       cout << "Total Score: " << (result_i.score + result_f.score + result_b.score) / 3 << endl;
       break;
+
     }
     default: break;
   }
@@ -70,6 +74,5 @@ int main() {
 
   return 0;
 }
-
 
 
