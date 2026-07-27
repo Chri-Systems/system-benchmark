@@ -66,7 +66,6 @@ int main() {
       cout << "Total Duration: " << result_i.duration + result_f.duration + result_b.duration << " ms"  << endl;
       cout << "Total Score: " << (result_i.score + result_f.score + result_b.score) / 3 << endl;
       break;
-
     }
     default: break;
   }
