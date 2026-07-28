@@ -1,6 +1,6 @@
 #pragma once
 #include "test.h"
-#include <cstdint>
+#include <chrono>
 
 using std::chrono::steady_clock;
 using std::chrono::milliseconds;
@@ -11,6 +11,12 @@ struct BenchmarkResult {
   long duration = 0;
   long score = 0;
 };
+
+namespace global {
+  constexpr int iterations_int = 500000000;
+  constexpr int iterations_float = 100000000;
+  constexpr int iterations_bitwise = 800000000;
+}
 
 namespace benchmark {
   inline BenchmarkResult integer_benchmark(const int iterations) {
