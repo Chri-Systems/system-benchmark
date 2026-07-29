@@ -28,7 +28,7 @@ namespace menu {
     cout << "\n\n";
   }
 
-  void main() {
+  void start() {
     while (true) {
       name();
       cout << "0) Exit" << endl;
@@ -45,7 +45,6 @@ namespace menu {
           break;
 
         default:
-          cout << color::red << "Invalid input" << color::reset << endl;
           break;
       }
     }
@@ -56,7 +55,6 @@ namespace menu {
       name();
       cout << "0) Back" << endl;
       cout << "1) Single-Thread" << endl;
-      cout << "2) Multi-Thread" << endl;
       cout << "select an option (0-2): ";
 
       switch (get_input()) {
@@ -68,12 +66,7 @@ namespace menu {
           cpu_single();
           break;
 
-        case 2:
-          cpu_multi();
-          break;
-
         default:
-          cout << color::red << "Invalid input" << color::reset << endl;
           break;
       }
     }
@@ -153,24 +146,11 @@ namespace menu {
           break;
         }
         default:
-          cout << color::red << "Invalid input" << color::reset << endl;
           break;
       }
+      cout << "\nPress Enter to continue...";
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-  }
-
-  void cpu_multi() {
-    name();
-    cout << "0) Back" << endl;
-    cout << "1) Integer Benchmark" << endl;
-    cout << "2) Floating Point Benchmark" << endl;
-    cout << "3) Bitwise Benchmark" << endl;
-    cout << "4) Basic Benchmark (Integer + Floating Point + Bitwise)" << endl;
-    cout << "select an option (0-4): ";
-
-
-
   }
 
 }
