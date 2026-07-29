@@ -1,9 +1,8 @@
-#pragma once
 #include <cmath>
-#include <cstdint>
+#include "cpu_test.h"
 
 namespace test {
-  inline int integer_basic_test(int n) {
+  int integer_basic_test(int n) {
     n = n + 3256;
     n = n - 3645;
     n = n * 34;
@@ -13,7 +12,7 @@ namespace test {
     return n;
   }
 
-  inline double floating_point_basic_test(double n) {
+  double floating_point_basic_test(double n) {
     n = n * 1.000001;
     n = n + 28575.678;
     n = n / 3.141592;
@@ -23,7 +22,7 @@ namespace test {
     return n;
   }
 
-  inline uint32_t bitwise_basic_test(uint32_t a, uint32_t b) {
+  uint32_t bitwise_basic_test(uint32_t a, uint32_t b) {
     uint32_t result = a;
 
     result = result & b;

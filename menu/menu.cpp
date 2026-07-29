@@ -1,5 +1,5 @@
 #include "menu.h"
-#include "benchmark.h"
+#include "../cpu/cpu_benchmark.h"
 
 using std::chrono::steady_clock;
 using std::chrono::milliseconds;
@@ -22,9 +22,9 @@ namespace menu {
   void name() {
     std::cout << color::clear_screen;
     cout << "\nSystem Benchmark v0.1.0-alpha";
-#ifdef DEVELOPMENT_BUILD
+    #ifdef DEVELOPMENT_BUILD
     cout << color::yellow << " [Development Build]" << color::reset;
-#endif
+    #endif
     cout << "\n\n";
   }
 
@@ -152,5 +152,4 @@ namespace menu {
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
   }
-
 }
