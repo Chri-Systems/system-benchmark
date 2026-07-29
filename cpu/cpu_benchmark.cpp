@@ -1,29 +1,12 @@
-#pragma once
-#include "test.h"
-#include <chrono>
-
-using std::chrono::steady_clock;
-using std::chrono::milliseconds;
-
-struct BenchmarkResult {
-  double checksum = 0;
-  int iterations = 0;
-  long duration = 0;
-  long score = 0;
-};
-
-namespace global {
-  constexpr int iterations_int = 500000000;
-  constexpr int iterations_float = 100000000;
-  constexpr int iterations_bitwise = 800000000;
-}
+#include "cpu_benchmark.h"
+#include "cpu_test.h"
 
 namespace benchmark {
-  inline BenchmarkResult integer_benchmark(const int iterations) {
+  BenchmarkResult integer_benchmark(const int64_t iterations) {
     int result = 27574;
     auto start = steady_clock::now().time_since_epoch();
 
-    for (int i = 0; i < iterations; i++) {
+    for (int64_t i = 0; i < iterations; i++) {
       result = test::integer_basic_test(result);
     }
     auto end = steady_clock::now().time_since_epoch();
@@ -33,11 +16,11 @@ namespace benchmark {
     return {static_cast<double>(result), iterations, duration_test.count(), score};
   }
 
-  inline BenchmarkResult floating_point_benchmark(const int iterations) {
+  BenchmarkResult floating_point_benchmark(const int64_t iterations) {
     double result = 7545.342;
     auto start = steady_clock::now().time_since_epoch();
 
-    for (int i = 0; i < iterations; i++) {
+    for (int64_t i = 0; i < iterations; i++) {
       result = test::floating_point_basic_test(result);
     }
     auto end = steady_clock::now().time_since_epoch();
@@ -47,12 +30,12 @@ namespace benchmark {
     return {result, iterations, duration_test.count(), score};
   }
 
-  inline BenchmarkResult bitwise_benchmark(const int iterations) {
+  BenchmarkResult bitwise_benchmark(const int64_t iterations) {
     uint32_t result = 0xA53F91C7;
     uint32_t b = 0x6D82E4B9;
     auto start = steady_clock::now().time_since_epoch();
 
-    for (int i = 0; i < iterations; i++) {
+    for (int64_t i = 0; i < iterations; i++) {
       result = test::bitwise_basic_test(result, b);
     }
     auto end = steady_clock::now().time_since_epoch();
@@ -62,11 +45,9 @@ namespace benchmark {
     return {static_cast<double>(result), iterations, duration_test.count(), score};
   }
 
-  inline long warm_up() {
+  long warm_up() {
     volatile int result_i = 35662;
-
     volatile double result_f = 54245.765;
-
     volatile uint32_t result_b = 0xA53F91C7;
     uint32_t b = 0x6D82E4B9;
 
