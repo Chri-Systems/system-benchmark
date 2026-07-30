@@ -1,4 +1,7 @@
 #include "cpu_benchmark.h"
+
+#include <thread>
+
 #include "cpu_test.h"
 
 namespace benchmark {
@@ -65,5 +68,10 @@ namespace benchmark {
     auto end = steady_clock::now().time_since_epoch();
 
     return duration_cast<milliseconds>(end - start).count();
+  }
+
+  unsigned int multithread_benchmark_test() {
+    unsigned int total_threads = std::thread::hardware_concurrency();
+    return total_threads;
   }
 }
