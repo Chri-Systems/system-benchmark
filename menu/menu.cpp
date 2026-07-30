@@ -1,5 +1,4 @@
 #include "menu.h"
-
 #include "../version.h"
 #include "../cpu/cpu_benchmark.h"
 
