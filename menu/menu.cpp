@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "../version.h"
 #include "../cpu/cpu_benchmark.h"
 
 using std::chrono::steady_clock;
@@ -21,7 +22,7 @@ namespace menu {
 
   void name() {
     std::cout << color::clear_screen;
-    cout << "\nSystem Benchmark v0.1.0-alpha";
+    cout << "\nSystem Benchmark " << VERSION;
     #ifdef DEVELOPMENT_BUILD
     cout << color::yellow << " [Development Build]" << color::reset;
     #endif
