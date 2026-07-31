@@ -1,5 +1,7 @@
 #pragma once
 #include <chrono>
+#include <mutex>
+#include <thread>
 
 using std::chrono::steady_clock;
 using std::chrono::milliseconds;
@@ -21,6 +23,10 @@ namespace global {
 }
 
 namespace benchmark {
+  inline std::mutex multithread_mutex;
+  inline std::vector<std::thread> multithread_threads;
+  inline std::vector<BenchmarkResult> multithread_results;
+
   // Misura la velocità dell'ALU
   BenchmarkResult integer_benchmark(int64_t iterations);
 
@@ -32,4 +38,6 @@ namespace benchmark {
 
   // Viene eseguito prima dei benchmark per "stabilizzare" la cpu
   long warm_up();
+
+  unsigned int multithread_benchmark_test();
 }

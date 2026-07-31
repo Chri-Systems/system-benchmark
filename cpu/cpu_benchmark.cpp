@@ -1,3 +1,4 @@
+#include <iostream>
 #include "cpu_benchmark.h"
 #include "cpu_test.h"
 
@@ -65,5 +66,30 @@ namespace benchmark {
     auto end = steady_clock::now().time_since_epoch();
 
     return duration_cast<milliseconds>(end - start).count();
+  }
+
+  void multithread_integer_benchmark(const int64_t iterations) {
+    BenchmarkResult result = integer_benchmark(iterations);
+    multithread_mutex.lock();
+    multithread_results.push_back(result);
+    multithread_mutex.unlock();
+  }
+
+  unsigned int multithread_benchmark_test() {
+    const unsigned int total_threads = std::thread::hardware_concurrency();
+
+    for (int i = 0; i < total_threads; i++) {
+      multithread_threads.emplace_back(multithread_integer_benchmark, global::iterations_int);
+    }
+
+    for (auto& thread: multithread_threads) {
+      thread.join();
+    }
+
+    for (auto& multithread_result: multithread_results) {
+      multithread_result.iterations;
+    }
+
+    return 0;
   }
 }

@@ -30,6 +30,8 @@ namespace menu {
   }
 
   void start() {
+    benchmark::multithread_benchmark_test();
+    return;
     while (true) {
       name();
       cout << "0) Exit" << endl;
