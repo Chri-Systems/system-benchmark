@@ -10,7 +10,8 @@ add_executable(system-benchmark
         menu/menu.h
         menu/menu.cpp
         cpu/cpu_benchmark.cpp
-        cpu/cpu_test.cpp)
+        cpu/cpu_test.cpp
+        version.h)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(system-benchmark PRIVATE DEVELOPMENT_BUILD)
