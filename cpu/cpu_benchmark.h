@@ -39,5 +39,5 @@ namespace benchmark {
   // Viene eseguito prima dei benchmark per "stabilizzare" la cpu
   long warm_up();
 
-  unsigned int multithread_benchmark_test();
+  BenchmarkResult multithread_benchmark();
 }

@@ -30,7 +30,15 @@ namespace menu {
   }
 
   void start() {
-    benchmark::multithread_benchmark_test();
+    const BenchmarkResult result = benchmark::multithread_benchmark();
+
+    std::cout << color::clear_screen;
+
+    cout << "Checksum (debug): " << result.checksum << endl;
+    cout << "Duration: " << result.duration << " ms" << endl;
+    cout << "Score (total): " << result.score << endl;
+    cout << "Score (per thread): " << result.score / std::thread::hardware_concurrency() << endl;
+
     return;
     while (true) {
       name();

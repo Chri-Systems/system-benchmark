@@ -68,28 +68,34 @@ namespace benchmark {
     return duration_cast<milliseconds>(end - start).count();
   }
 
-  void multithread_integer_benchmark(const int64_t iterations) {
+  void multithread_integer_thread(const int64_t iterations) {
     BenchmarkResult result = integer_benchmark(iterations);
     multithread_mutex.lock();
     multithread_results.push_back(result);
     multithread_mutex.unlock();
   }
 
-  unsigned int multithread_benchmark_test() {
+  BenchmarkResult multithread_benchmark() {
     const unsigned int total_threads = std::thread::hardware_concurrency();
 
     for (int i = 0; i < total_threads; i++) {
-      multithread_threads.emplace_back(multithread_integer_benchmark, global::iterations_int);
+      multithread_threads.emplace_back(multithread_integer_thread, global::iterations_int);
     }
 
     for (auto& thread: multithread_threads) {
       thread.join();
     }
 
+    int64_t tot_iterations = 0;
+    int64_t tot_duration = 0;
+    int64_t tot_score = 0;
+
     for (auto& multithread_result: multithread_results) {
-      multithread_result.iterations;
+      tot_iterations += multithread_result.iterations;
+      tot_duration += multithread_result.duration;
+      tot_score += multithread_result.score;
     }
 
-    return 0;
+    return {0, tot_iterations, tot_duration, tot_score};
   }
 }
