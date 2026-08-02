@@ -22,4 +22,5 @@ namespace menu {
   void start();
   void cpu_main();
   void cpu_single();
+  void cpu_multi();
 }

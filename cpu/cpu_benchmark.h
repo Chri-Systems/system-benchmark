@@ -13,6 +13,12 @@ struct BenchmarkResult {
   long score = 0;
 };
 
+enum class type {
+  INTEGER,
+  FLOATING_POINT,
+  BITWISE
+};
+
 namespace global {
   constexpr int64_t million = 1'000'000;
   constexpr int64_t billion = 1'000'000'000;
@@ -39,5 +45,5 @@ namespace benchmark {
   // Viene eseguito prima dei benchmark per "stabilizzare" la cpu
   long warm_up();
 
-  BenchmarkResult multithread_benchmark();
+  BenchmarkResult multithread_benchmark(type type);
 }

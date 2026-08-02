@@ -75,27 +75,63 @@ namespace benchmark {
     multithread_mutex.unlock();
   }
 
-  BenchmarkResult multithread_benchmark() {
+  void multithread_floating_point_thread(const int64_t iterations) {
+    BenchmarkResult result = floating_point_benchmark(iterations);
+    multithread_mutex.lock();
+    multithread_results.push_back(result);
+    multithread_mutex.unlock();
+  }
+
+  void multithread_bitwise_thread(const int64_t iterations) {
+    BenchmarkResult result = bitwise_benchmark(iterations);
+    multithread_mutex.lock();
+    multithread_results.push_back(result);
+    multithread_mutex.unlock();
+  }
+
+  BenchmarkResult multithread_benchmark(const type type) {
     const unsigned int total_threads = std::thread::hardware_concurrency();
 
-    for (int i = 0; i < total_threads; i++) {
-      multithread_threads.emplace_back(multithread_integer_thread, global::iterations_int);
+    switch (type) {
+      case type::INTEGER: {
+        for (int i = 0; i < total_threads; i++) {
+          multithread_threads.emplace_back(multithread_integer_thread, global::iterations_int);
+        }
+        break;
+      }
+      case type::FLOATING_POINT: {
+        for (int i = 0; i < total_threads; i++) {
+          multithread_threads.emplace_back(multithread_floating_point_thread, global::iterations_float);
+        }
+        break;
+      }
+      case type::BITWISE: {
+        for (int i = 0; i < total_threads; i++) {
+          multithread_threads.emplace_back(multithread_bitwise_thread, global::iterations_bitwise);
+        }
+        break;
+      }
     }
 
     for (auto& thread: multithread_threads) {
       thread.join();
     }
 
+    double tot_checksum = 0;
     int64_t tot_iterations = 0;
     int64_t tot_duration = 0;
     int64_t tot_score = 0;
 
-    for (auto& multithread_result: multithread_results) {
+    for (auto& multithread_result : multithread_results) {
+      tot_checksum += multithread_result.checksum;
       tot_iterations += multithread_result.iterations;
       tot_duration += multithread_result.duration;
       tot_score += multithread_result.score;
     }
 
-    return {0, tot_iterations, tot_duration, tot_score};
+    multithread_results.clear();
+    multithread_threads.clear();
+
+    return {tot_checksum, tot_iterations, tot_duration, tot_score};
   }
 }
