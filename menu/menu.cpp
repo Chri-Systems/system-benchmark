@@ -224,16 +224,16 @@ namespace menu {
           cout << "Integer Score (per thread): " << result_i.score / std::thread::hardware_concurrency() << endl;
           cout << endl;
 
-          cout << "Floating Point Checksum (debug): " << result_i.checksum << endl;
-          cout << "Floating Point Duration (total): " << result_i.duration << " ms" << endl;
-          cout << "Floating Point Score (total): " << result_i.score << endl;
-          cout << "Floating Point Score (per thread): " << result_i.score / std::thread::hardware_concurrency() << endl;
+          cout << "Floating Point Checksum (debug): " << result_f.checksum << endl;
+          cout << "Floating Point Duration (total): " << result_f.duration << " ms" << endl;
+          cout << "Floating Point Score (total): " << result_f.score << endl;
+          cout << "Floating Point Score (per thread): " << result_f.score / std::thread::hardware_concurrency() << endl;
           cout << endl;
 
-          cout << "Bitwise Checksum (debug): " << result_i.checksum << endl;
-          cout << "Bitwise Duration (total): " << result_i.duration << " ms" << endl;
-          cout << "Bitwise Score (total): " << result_i.score << endl;
-          cout << "Bitwise Score (per thread): " << result_i.score / std::thread::hardware_concurrency() << endl;
+          cout << "Bitwise Checksum (debug): " << result_b.checksum << endl;
+          cout << "Bitwise Duration (total): " << result_b.duration << " ms" << endl;
+          cout << "Bitwise Score (total): " << result_b.score << endl;
+          cout << "Bitwise Score (per thread): " << result_b.score / std::thread::hardware_concurrency() << endl;
           cout << endl;
 
           cout << "Total Duration: " << result_i.duration + result_f.duration + result_b.duration << " ms"  << endl;
