@@ -89,23 +89,23 @@ namespace benchmark {
     multithread_mutex.unlock();
   }
 
-  BenchmarkResult multithread_benchmark(const type type) {
+  BenchmarkResult multithread_benchmark(const BenchmarkType type) {
     const unsigned int total_threads = std::thread::hardware_concurrency();
 
     switch (type) {
-      case type::INTEGER: {
+      case BenchmarkType::INTEGER: {
         for (int i = 0; i < total_threads; i++) {
           multithread_threads.emplace_back(multithread_integer_thread, global::iterations_int);
         }
         break;
       }
-      case type::FLOATING_POINT: {
+      case BenchmarkType::FLOATING_POINT: {
         for (int i = 0; i < total_threads; i++) {
           multithread_threads.emplace_back(multithread_floating_point_thread, global::iterations_float);
         }
         break;
       }
-      case type::BITWISE: {
+      case BenchmarkType::BITWISE: {
         for (int i = 0; i < total_threads; i++) {
           multithread_threads.emplace_back(multithread_bitwise_thread, global::iterations_bitwise);
         }
@@ -128,6 +128,8 @@ namespace benchmark {
       tot_duration += multithread_result.duration;
       tot_score += multithread_result.score;
     }
+
+    tot_duration = tot_duration / std::thread::hardware_concurrency();
 
     multithread_results.clear();
     multithread_threads.clear();

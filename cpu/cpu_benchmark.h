@@ -13,7 +13,7 @@ struct BenchmarkResult {
   long score = 0;
 };
 
-enum class type {
+enum class BenchmarkType {
   INTEGER,
   FLOATING_POINT,
   BITWISE
@@ -45,5 +45,5 @@ namespace benchmark {
   // Viene eseguito prima dei benchmark per "stabilizzare" la cpu
   long warm_up();
 
-  BenchmarkResult multithread_benchmark(type type);
+  BenchmarkResult multithread_benchmark(BenchmarkType type);
 }

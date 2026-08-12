@@ -1,7 +1,11 @@
+#include <iostream>
 #include "menu.h"
 #include "../version.h"
 #include "../cpu/cpu_benchmark.h"
 
+using std::cin;
+using std::cout;
+using std::endl;
 using std::chrono::steady_clock;
 using std::chrono::milliseconds;
 
@@ -21,7 +25,7 @@ namespace menu {
   }
 
   void name() {
-    std::cout << color::clear_screen;
+    cout << color::clear_screen;
     cout << "\nSystem Benchmark " << VERSION;
     #ifdef DEVELOPMENT_BUILD
     cout << color::yellow << " [Development Build]" << color::reset;
@@ -34,19 +38,22 @@ namespace menu {
       name();
       cout << "0) Exit" << endl;
       cout << "1) CPU Benchmark" << endl;
-      cout << "select an option (0-1): ";
+      cout << "Select an option (0-1): ";
 
       switch (get_input()) {
-        case 0:
+        case 0: {
           exit(0);
           break;
+        }
 
-        case 1:
+        case 1: {
           cpu_main();
           break;
+        }
 
-        default:
+        default: {
           break;
+        }
       }
     }
   }
@@ -57,23 +64,26 @@ namespace menu {
       cout << "0) Back" << endl;
       cout << "1) Single-Thread" << endl;
       cout << "2) Multi-Thread" << endl;
-      cout << "select an option (0-2): ";
+      cout << "Select an option (0-2): ";
 
       switch (get_input()) {
-        case 0:
+        case 0: {
           return;
-          break;
+        }
 
-        case 1:
+        case 1: {
           cpu_single();
           break;
+        }
 
-        case 2:
+        case 2: {
           cpu_multi();
           break;
+        }
 
-        default:
+        default: {
           break;
+        }
       }
     }
   }
@@ -86,73 +96,78 @@ namespace menu {
       cout << "2) Floating Point Benchmark" << endl;
       cout << "3) Bitwise Benchmark" << endl;
       cout << "4) Basic Benchmark (Integer + Floating Point + Bitwise)" << endl;
-      cout << "select an option (0-4): ";
+      cout << "Select an option (0-4): ";
 
       const int input = get_input();
       benchmark::warm_up();
       switch (input) {
         case 0: {
           return;
-          break;
         }
+
         case 1: {
           BenchmarkResult result = benchmark::integer_benchmark(iterations_int);
 
-          std::cout << color::clear_screen;
+          cout << color::clear_screen;
 
           cout << "Checksum (debug): " << result.checksum << endl;
           cout << "Duration: " << result.duration << " ms" << endl;
           cout << "Score: " << result.score << endl;
           break;
         }
+
         case 2: {
           BenchmarkResult result = benchmark::floating_point_benchmark(iterations_float);
 
-          std::cout << color::clear_screen;
+          cout << color::clear_screen;
 
           cout << "Checksum (debug): " << result.checksum << endl;
-          cout << "Duration: " << result.duration << " ms"  << endl;
+          cout << "Duration: " << result.duration << " ms" << endl;
           cout << "Score: " << result.score << endl;
           break;
         }
+
         case 3: {
           BenchmarkResult result = benchmark::bitwise_benchmark(iterations_bitwise);
 
-          std::cout << color::clear_screen;
+          cout << color::clear_screen;
 
           cout << "Checksum (debug): " << result.checksum << endl;
-          cout << "Duration: " << result.duration << " ms"  << endl;
+          cout << "Duration: " << result.duration << " ms" << endl;
           cout << "Score: " << result.score << endl;
           break;
         }
+
         case 4: {
           BenchmarkResult result_i = benchmark::integer_benchmark(iterations_int);
           BenchmarkResult result_f = benchmark::floating_point_benchmark(iterations_float);
           BenchmarkResult result_b = benchmark::bitwise_benchmark(iterations_bitwise);
 
-          std::cout << color::clear_screen;
+          cout << color::clear_screen;
 
           cout << "Integer Checksum (debug): " << result_i.checksum << endl;
-          cout << "Integer Duration: " << result_i.duration << " ms"  << endl;
+          cout << "Integer Duration: " << result_i.duration << " ms" << endl;
           cout << "Integer Score: " << result_i.score << endl;
           cout << endl;
 
-          cout << "Floating Checksum (debug): " << result_f.checksum << endl;
-          cout << "Floating Point Duration: " << result_f.duration << " ms"  << endl;
+          cout << "Floating Point Checksum (debug): " << result_f.checksum << endl;
+          cout << "Floating Point Duration: " << result_f.duration << " ms" << endl;
           cout << "Floating Point Score: " << result_f.score << endl;
           cout << endl;
 
           cout << "Bitwise Checksum (debug): " << result_b.checksum << endl;
-          cout << "Bitwise Duration: " << result_b.duration << " ms"  << endl;
+          cout << "Bitwise Duration: " << result_b.duration << " ms" << endl;
           cout << "Bitwise Score: " << result_b.score << endl;
           cout << endl;
 
-          cout << "Total Duration: " << result_i.duration + result_f.duration + result_b.duration << " ms"  << endl;
+          cout << "Total Duration: " << result_i.duration + result_f.duration + result_b.duration << " ms" << endl;
           cout << "Total Score: " << (result_i.score + result_f.score + result_b.score) / 3 << endl;
           break;
         }
-        default:
+
+        default: {
           break;
+        }
       }
       cout << "\nPress Enter to continue...";
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -168,81 +183,86 @@ namespace menu {
       cout << "2) Floating Point Benchmark" << endl;
       cout << "3) Bitwise Benchmark" << endl;
       cout << "4) Basic Benchmark (Integer + Floating Point + Bitwise)" << endl;
-      cout << "select an option (0-4): ";
+      cout << "Select an option (0-4): ";
 
       const int input = get_input();
       benchmark::warm_up();
       switch (input) {
         case 0: {
           return;
-          break;
         }
+
         case 1: {
-          BenchmarkResult result = benchmark::multithread_benchmark(type::INTEGER);
+          BenchmarkResult result = benchmark::multithread_benchmark(BenchmarkType::INTEGER);
 
-          std::cout << color::clear_screen;
+          cout << color::clear_screen;
 
           cout << "Checksum (debug): " << result.checksum << endl;
-          cout << "Duration (total): " << result.duration << " ms" << endl;
+          cout << "Average Duration (per thread): " << result.duration << " ms" << endl;
           cout << "Score (total): " << result.score << endl;
           cout << "Score (per thread): " << result.score / std::thread::hardware_concurrency() << endl;
           break;
         }
+
         case 2: {
-          BenchmarkResult result = benchmark::multithread_benchmark(type::FLOATING_POINT);
+          BenchmarkResult result = benchmark::multithread_benchmark(BenchmarkType::FLOATING_POINT);
 
-          std::cout << color::clear_screen;
+          cout << color::clear_screen;
 
           cout << "Checksum (debug): " << result.checksum << endl;
-          cout << "Duration (total): " << result.duration << " ms" << endl;
+          cout << "Average Duration (per thread): " << result.duration << " ms" << endl;
           cout << "Score (total): " << result.score << endl;
           cout << "Score (per thread): " << result.score / std::thread::hardware_concurrency() << endl;
 
           break;
         }
+
         case 3: {
-          BenchmarkResult result = benchmark::multithread_benchmark(type::BITWISE);
+          BenchmarkResult result = benchmark::multithread_benchmark(BenchmarkType::BITWISE);
 
-          std::cout << color::clear_screen;
+          cout << color::clear_screen;
 
           cout << "Checksum (debug): " << result.checksum << endl;
-          cout << "Duration (total): " << result.duration << " ms" << endl;
+          cout << "Average Duration (per thread): " << result.duration << " ms" << endl;
           cout << "Score (total): " << result.score << endl;
           cout << "Score (per thread): " << result.score / std::thread::hardware_concurrency() << endl;
           break;
         }
-        case 4: {
-          BenchmarkResult result_i = benchmark::multithread_benchmark(type::INTEGER);
-          BenchmarkResult result_f = benchmark::multithread_benchmark(type::FLOATING_POINT);
-          BenchmarkResult result_b = benchmark::multithread_benchmark(type::BITWISE);
 
-          std::cout << color::clear_screen;
+        case 4: {
+          BenchmarkResult result_i = benchmark::multithread_benchmark(BenchmarkType::INTEGER);
+          BenchmarkResult result_f = benchmark::multithread_benchmark(BenchmarkType::FLOATING_POINT);
+          BenchmarkResult result_b = benchmark::multithread_benchmark(BenchmarkType::BITWISE);
+
+          cout << color::clear_screen;
 
           cout << "Integer Checksum (debug): " << result_i.checksum << endl;
-          cout << "Integer Duration (total): " << result_i.duration << " ms" << endl;
+          cout << "Integer Average Duration (per thread): " << result_i.duration << " ms" << endl;
           cout << "Integer Score (total): " << result_i.score << endl;
           cout << "Integer Score (per thread): " << result_i.score / std::thread::hardware_concurrency() << endl;
           cout << endl;
 
           cout << "Floating Point Checksum (debug): " << result_f.checksum << endl;
-          cout << "Floating Point Duration (total): " << result_f.duration << " ms" << endl;
+          cout << "Floating Point Average Duration (per thread): " << result_f.duration << " ms" << endl;
           cout << "Floating Point Score (total): " << result_f.score << endl;
           cout << "Floating Point Score (per thread): " << result_f.score / std::thread::hardware_concurrency() << endl;
           cout << endl;
 
           cout << "Bitwise Checksum (debug): " << result_b.checksum << endl;
-          cout << "Bitwise Duration (total): " << result_b.duration << " ms" << endl;
+          cout << "Bitwise Average Duration (per thread): " << result_b.duration << " ms" << endl;
           cout << "Bitwise Score (total): " << result_b.score << endl;
           cout << "Bitwise Score (per thread): " << result_b.score / std::thread::hardware_concurrency() << endl;
           cout << endl;
 
-          cout << "Total Duration: " << result_i.duration + result_f.duration + result_b.duration << " ms"  << endl;
+          cout << "Total Average Duration (per thread): " << result_i.duration + result_f.duration + result_b.duration << " ms" << endl;
           cout << "Total Score (total): " << (result_i.score + result_f.score + result_b.score) / 3 << endl;
           cout << "Total Score (per thread): " << ((result_i.score + result_f.score + result_b.score) / 3) / std::thread::hardware_concurrency() << endl;
           break;
         }
-        default:
+
+        default: {
           break;
+        }
       }
       cout << "\nPress Enter to continue...";
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

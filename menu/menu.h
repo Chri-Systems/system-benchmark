@@ -1,9 +1,4 @@
 #pragma once
-#include <iostream>
-
-using std::cin;
-using std::cout;
-using std::endl;
 
 namespace color {
   constexpr auto reset = "\033[0m";
