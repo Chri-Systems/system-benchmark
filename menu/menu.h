@@ -1,9 +1,4 @@
 #pragma once
-#include <iostream>
-
-using std::cin;
-using std::cout;
-using std::endl;
 
 namespace color {
   constexpr auto reset = "\033[0m";
@@ -22,4 +17,5 @@ namespace menu {
   void start();
   void cpu_main();
   void cpu_single();
+  void cpu_multi();
 }

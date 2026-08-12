@@ -1,5 +1,7 @@
 #pragma once
 #include <chrono>
+#include <mutex>
+#include <thread>
 
 using std::chrono::steady_clock;
 using std::chrono::milliseconds;
@@ -9,6 +11,12 @@ struct BenchmarkResult {
   int64_t iterations = 0;
   long duration = 0;
   long score = 0;
+};
+
+enum class BenchmarkType {
+  INTEGER,
+  FLOATING_POINT,
+  BITWISE
 };
 
 namespace global {
@@ -21,6 +29,10 @@ namespace global {
 }
 
 namespace benchmark {
+  inline std::mutex multithread_mutex;
+  inline std::vector<std::thread> multithread_threads;
+  inline std::vector<BenchmarkResult> multithread_results;
+
   // Misura la velocità dell'ALU
   BenchmarkResult integer_benchmark(int64_t iterations);
 
@@ -32,4 +44,6 @@ namespace benchmark {
 
   // Viene eseguito prima dei benchmark per "stabilizzare" la cpu
   long warm_up();
+
+  BenchmarkResult multithread_benchmark(BenchmarkType type);
 }

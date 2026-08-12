@@ -1,24 +1,25 @@
 # System Benchmark
-System Benchmark è un benchmark CLI scritto in C++ per computer e server che utilizza diversi tipi di test
+System Benchmark è un benchmark CLI scritto in C++ per computer e server che utilizza diversi tipi di test e calcoli
+per valutare la velocità dei componenti (o, se usato come stress-test, per tenerli sotto carico)
 
 
 ## Test disponibili
-Attualmente sono disponibili solo test per la CPU
+Attualmente sono disponibili solo benchmark per CPU (single-thread e multi-thread)
+
+In futuro verranno aggiunti altri benchmark (GPU, RAM, HDD/SSD) e stress-test
 
 
-### CPU
-- Integer: misura le prestazioni nelle operazioni con numeri interi
-- Floating Point: misura le prestazioni nei calcoli con numeri decimali
-- Bitwise: misura le prestazioni nelle operazioni sui singoli bit dei dati
+### CPU (single-thread e multi-thread)
+- Integer: esegue operazioni con numeri interi
+- Floating Point: esegue operazioni con numeri decimali
+- Bitwise: esegue operazioni sui singoli bit dei dati
 - Basic: esegue tutti i test CPU disponibili
-
-Altri componenti hardware verranno aggiunti in futuro
 
 
 ## Utilizzo
 Avviare l'eseguibile e selezionare il test da eseguire
 
-Il risultato mostra il checksum, il tempo di esecuzione e il punteggio ottenuto
+Il risultato mostra il checksum (risultato delle operazioni del benchmark, serve solo a noi sviluppatori come debug), il tempo di esecuzione e il punteggio ottenuto 
 
 
 ## Stato del progetto
