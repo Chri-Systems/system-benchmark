@@ -7,8 +7,6 @@ namespace color {
   constexpr auto yellow = "\033[33m";
   constexpr auto blue = "\033[34m";
   constexpr auto cyan = "\033[36m";
-
-  constexpr auto clear_screen = "\033[2J\033[H";
 }
 
 namespace menu {
