@@ -16,7 +16,7 @@ add_executable(system-benchmark
 
 if(MINGW)
     target_link_options(system-benchmark PRIVATE -static-libgcc -static-libstdc++)
-    target_link_libraries(system-benchmark PRIVATE -Wl,-Bstatic pthread -Wl,-Bdynamic)
+    target_link_libraries(system-benchmark PRIVATE -Wl,-Bstatic -lpthread -lwinpthread -Wl,-Bdynamic)
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
