@@ -12,6 +12,14 @@ using std::chrono::milliseconds;
 using namespace global;
 
 namespace menu {
+  void clear_screen() {
+  #ifdef _WIN32
+    system("cls");
+  #else
+    system("clear");
+  #endif
+  }
+
   int get_input() {
     std::string input;
     cin >> input;
@@ -25,7 +33,7 @@ namespace menu {
   }
 
   void name() {
-    cout << color::clear_screen;
+    clear_screen();
     cout << "\nSystem Benchmark " << VERSION;
     #ifdef DEVELOPMENT_BUILD
     cout << color::yellow << " [Development Build]" << color::reset;
@@ -43,7 +51,6 @@ namespace menu {
       switch (get_input()) {
         case 0: {
           exit(0);
-          break;
         }
 
         case 1: {
@@ -108,7 +115,7 @@ namespace menu {
         case 1: {
           BenchmarkResult result = benchmark::integer_benchmark(iterations_int);
 
-          cout << color::clear_screen;
+          clear_screen();
 
           cout << "Checksum (debug): " << result.checksum << endl;
           cout << "Duration: " << result.duration << " ms" << endl;
@@ -119,7 +126,7 @@ namespace menu {
         case 2: {
           BenchmarkResult result = benchmark::floating_point_benchmark(iterations_float);
 
-          cout << color::clear_screen;
+          clear_screen();
 
           cout << "Checksum (debug): " << result.checksum << endl;
           cout << "Duration: " << result.duration << " ms" << endl;
@@ -130,7 +137,7 @@ namespace menu {
         case 3: {
           BenchmarkResult result = benchmark::bitwise_benchmark(iterations_bitwise);
 
-          cout << color::clear_screen;
+          clear_screen();
 
           cout << "Checksum (debug): " << result.checksum << endl;
           cout << "Duration: " << result.duration << " ms" << endl;
@@ -143,7 +150,7 @@ namespace menu {
           BenchmarkResult result_f = benchmark::floating_point_benchmark(iterations_float);
           BenchmarkResult result_b = benchmark::bitwise_benchmark(iterations_bitwise);
 
-          cout << color::clear_screen;
+          clear_screen();
 
           cout << "Integer Checksum (debug): " << result_i.checksum << endl;
           cout << "Integer Duration: " << result_i.duration << " ms" << endl;
@@ -195,7 +202,7 @@ namespace menu {
         case 1: {
           BenchmarkResult result = benchmark::multithread_benchmark(BenchmarkType::INTEGER);
 
-          cout << color::clear_screen;
+          clear_screen();
 
           cout << "Checksum (debug): " << result.checksum << endl;
           cout << "Average Duration (per thread): " << result.duration << " ms" << endl;
@@ -207,7 +214,7 @@ namespace menu {
         case 2: {
           BenchmarkResult result = benchmark::multithread_benchmark(BenchmarkType::FLOATING_POINT);
 
-          cout << color::clear_screen;
+          clear_screen();
 
           cout << "Checksum (debug): " << result.checksum << endl;
           cout << "Average Duration (per thread): " << result.duration << " ms" << endl;
@@ -220,7 +227,7 @@ namespace menu {
         case 3: {
           BenchmarkResult result = benchmark::multithread_benchmark(BenchmarkType::BITWISE);
 
-          cout << color::clear_screen;
+          clear_screen();
 
           cout << "Checksum (debug): " << result.checksum << endl;
           cout << "Average Duration (per thread): " << result.duration << " ms" << endl;
@@ -234,7 +241,7 @@ namespace menu {
           BenchmarkResult result_f = benchmark::multithread_benchmark(BenchmarkType::FLOATING_POINT);
           BenchmarkResult result_b = benchmark::multithread_benchmark(BenchmarkType::BITWISE);
 
-          cout << color::clear_screen;
+          clear_screen();
 
           cout << "Integer Checksum (debug): " << result_i.checksum << endl;
           cout << "Integer Average Duration (per thread): " << result_i.duration << " ms" << endl;
