@@ -16,14 +16,13 @@ add_executable(system-benchmark
 
 if(MINGW)
     target_link_options(system-benchmark PRIVATE
-            -static
             -static-libgcc
             -static-libstdc++
-    )
-
-    target_link_libraries(system-benchmark PRIVATE
-            "-l:libpthread.a"
-            "-l:libwinpthread.a"
+            -Wl
+            -Bstatic
+            -lstdc++
+            -lpthread -Wl
+            -Bdynamic
     )
 endif()
 
