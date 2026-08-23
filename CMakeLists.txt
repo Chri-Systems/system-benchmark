@@ -15,7 +15,7 @@ add_executable(system-benchmark
 
 
 if(MINGW)
-
+    set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
